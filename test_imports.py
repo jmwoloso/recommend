@@ -2,12 +2,17 @@
 # Tests whether the pyspark modules can be imported at run time
 import sys
 import os
+import py4j
 
+if 'SPARK_HOME' not in os.environ:
+    # path for spark source folder
+    os.environ['SPARK_HOME']="/home/jason/source/packages/non-python/spark"
 
-# path for spark source folder
-os.environ['SPARK_HOME']="/home/jason/source/packages/non-python/spark"
-# append pyspark to Python Path
-sys.path.append("/home/jason/source/packages/non-python/spark/python")
+SPARK_HOME = os.environ['SPARK_HOME']
+# append pyspark/py4j to Python Path
+sys.path.insert(0, os.path.join(SPARK_HOME, "python", "build"))
+sys.path.insert(0, os.path.join(SPARK_HOME, "python"))
+
 
 try:
     from pyspark import SparkContext

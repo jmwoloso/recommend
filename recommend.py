@@ -55,20 +55,14 @@ from pyspark import SparkConf, SparkContext
 from pyspark.mllib.recommendation import ALS
 
 
-# path for spark source folder
-os.environ['SPARK_HOME']="/home/jason/source/packages/non-python/spark/bin"
-# append pyspark to Python Path
-sys.path.append("/home/jason/source/packages/non-python/spark/bin")
+if 'SPARK_HOME' not in os.environ:
+    # path for spark source folder
+    os.environ['SPARK_HOME']="/home/jason/source/packages/non-python/spark"
 
-try:
-    from pyspark import SparkContext
-    from pyspark import SparkConf
-
-    print("Successfully imported Spark Modules")
-
-except ImportError as e:
-    print("Cannot import Spark Modules", e)
-    sys.exit(1)
+SPARK_HOME = os.environ['SPARK_HOME']
+# append pyspark/py4j to Python Path
+sys.path.insert(0, os.path.join(SPARK_HOME, "python", "build"))
+sys.path.insert(0, os.path.join(SPARK_HOME, "python"))
 
 SPARK_EXECUTOR_MEMORY = '2g'
 SPARK_APP_NAME = 'movieRecommender'
