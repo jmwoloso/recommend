@@ -1,0 +1,5 @@
+docopt==0.6.2
+numpy==1.9.2
+py4j==0.9
+wheel==0.24.0
+yolk3k==0.8.7
