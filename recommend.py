@@ -48,11 +48,27 @@ import itertools
 from math import sqrt
 from operator import add
 import sys
+import os
 
 from docopt import docopt
 from pyspark import SparkConf, SparkContext
 from pyspark.mllib.recommendation import ALS
 
+
+# path for spark source folder
+os.environ['SPARK_HOME']="/home/jason/source/packages/non-python/spark/bin"
+# append pyspark to Python Path
+sys.path.append("/home/jason/source/packages/non-python/spark/bin")
+
+try:
+    from pyspark import SparkContext
+    from pyspark import SparkConf
+
+    print("Successfully imported Spark Modules")
+
+except ImportError as e:
+    print("Cannot import Spark Modules", e)
+    sys.exit(1)
 
 SPARK_EXECUTOR_MEMORY = '2g'
 SPARK_APP_NAME = 'movieRecommender'
